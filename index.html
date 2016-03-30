@@ -10,8 +10,8 @@
 $( document ).ready(function() {
   $('#generate-form').on('submit', function() {
     var smartLink = 'https://login.microsoftonline.com/login.srf?wa=wsignin1.0';
-    smartLink += '&whr=' + encodeURI($('#domain').val());
-    smartLink += '&wreply=' + encodeURI($('#link').val());
+    smartLink += '&whr=' + encodeURIComponent($('#domain').val());
+    smartLink += '&wreply=' + encodeURIComponent($('#link').val());
     $('#generated-output').val(smartLink);
     $('#generated-link').text(smartLink).attr('href', smartLink);
     $('.output').show();
