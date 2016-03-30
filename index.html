@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Office 365 smart link generator</title>
+<title>Office 365 smart link generator (SAML IdP)</title>
 <script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -38,12 +38,17 @@ $( document ).ready(function() {
 <body>
 <div class="container">
   
-<h1>Office 365 smart link generator</h1>
+<h1>Office 365 smart link generator for a SAML IdP</h1>
 
 <p>Linking to an Office 365 resource (e.g. SharePoint site) won't initiate single sign-on automatically.
 That's where smart links come in. A smart link is your realm and your resource address encoded in a login URL.</p>
 
-<p></p>Format: <span class="code">https://login.microsoftonline.com/login.srf?wa=wsignin1.0&amp;whr=<span class="input-1">[1]</span>&amp;wreply=<span class="input-2">[2]</span></span></p>
+<p>This generator is useful for Office 365 instances that are configured for SAMLP authentication.
+ For ADFS WS-federation, see <a href="http://sbrickey.com/Tech/Blog/Post/Office_365_Smart_Link_to_a_specific_URL">Scott Brickey's blog</a>,
+ <a href="https://community.office365.com/en-us/w/sso/358-using-smart-links-or-idp-initiated-authentication-with-office-365">Microsoft's wiki</a> and
+ <a href="http://travisspencer.com/stash/o365-smart-link.html">Travis Spencer's generator</a>.</p>
+
+<p>Format: <span class="code">https://login.microsoftonline.com/login.srf?wa=wsignin1.0&amp;whr=<span class="input-1">[1]</span>&amp;wreply=<span class="input-2">[2]</span></span></p>
 
 <form id="generate-form">
 <ol>
