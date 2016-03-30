@@ -1,6 +1,9 @@
 <html>
 <head>
 <title>Office 365 smart link generator</title>
+<style>
+  .output { display: none; }
+</style>
 <script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
 <script>
 $( document ).ready(function() {
@@ -10,8 +13,9 @@ $( document ).ready(function() {
     smartLink += '&wreply=' + $('#link').val();
     $('#generated-output').val(smartLink);
     $('#generated-link').text(smartLink).attr('href', smartLink);
+    $('.output').show();
   }
-}
+});
 </script>
 </head>
 <body>
@@ -22,8 +26,10 @@ $( document ).ready(function() {
 
 <p><input type="button" value="Generate" onclick="generate();"></p>
 
+<div class="output">
 <p><input id="generated-output" type="text"></p>
-
 <p><a id="generated-link" href="#"></a></p>
+</div>
 
 </body>
+</html>
