@@ -1,11 +1,17 @@
 <html>
 <head>
 <title>Office 365 smart link generator</title>
+<script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <style>
   .output { display: none; }
-  #generated-output { width: 95%; }
+  #generate-form li {
+    list-style-type: none;
+    margin-bottom: 1em;
+  }
+  input[type=text] { width: 95%; }
 </style>
-<script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
 <script>
 $( document ).ready(function() {
   $('#generate-form').on('submit', function() {
@@ -25,7 +31,15 @@ $( document ).ready(function() {
 <h1>Office 365 smart link generator</h1>
 
 <form id="generate-form">
-<p>https://login.microsoftonline.com/login.srf?wa=wsignin1.0&amp;whr=<input id="domain" type="text" placeholder="domain">&amp;wreply=<input id="link" type="text" placeholder="link"></p>
+<p>https://login.microsoftonline.com/login.srf?
+<ul>
+  <li>wa=wsignin1.0</li>
+  <li>&amp;whr=
+    <br /><input id="domain" type="text" placeholder="domain"></li>
+  <li>&amp;wreply=
+    <br /><input id="link" type="text" placeholder="link"></li>
+</ul>
+</p>
 <p><input type="submit" value="Generate"></p>
 </form>
 
