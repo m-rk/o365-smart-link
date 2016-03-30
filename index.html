@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>Office 365 smart link generator</title>
+<script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
+<script>
+$( document ).ready(function() {
+  function generate() {
+    var smartLink = 'https://login.microsoftonline.com/login.srf?wa=wsignin1.0';
+    smartLink += '&whr=' + $('#domain').val();
+    smartLink += '&wreply=' + $('#link').val();
+    $('#generated-output').val(smartLink);
+    $('#generated-link').text(smartLink).attr('href', smartLink);
+  }
+}
+</script>
+</head>
+<body>
+
+<h1>Office 365 smart link generator</h1>
+
+<p>https://login.microsoftonline.com/login.srf?wa=wsignin1.0&amp;whr=<input id="domain" type="text">&amp;wreply=<input id="link" type="text"></p>
+
+<p><input type="button" value="Generate" onclick="generate();"></p>
+
+<p><input id="generated-output" type="text"></p>
+
+<p><a id="generated-link" href="#"></a></p>
+
+</body>
