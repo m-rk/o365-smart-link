@@ -10,6 +10,15 @@
     list-style-type: none;
     margin-bottom: 1em;
   }
+  .input-1, .input-2 {
+    font-weight: bold;
+  }
+  .input-1 {
+    color: red;
+  }
+  .input-2 {
+    color: green;
+  }
   input[type=text] { width: 95%; }
 </style>
 <script>
@@ -30,16 +39,18 @@ $( document ).ready(function() {
 
 <h1>Office 365 smart link generator</h1>
 
+<p>Linking to an Office 365 resource (e.g. SharePoint site) won't initiate single sign-on automatically.
+That's where smart links come in. A smart link is your realm and your resource address encoded in a login URL.</p>
+
+<p></p>Format: <span class="code">https://login.microsoftonline.com/login.srf?wa=wsignin1.0&amp;whr=<span class="input-1">[1]</span>&amp;wreply=<span class="input-2">[2]</span></span></p>
+
 <form id="generate-form">
-<p>https://login.microsoftonline.com/login.srf?
-<ul>
-  <li>wa=wsignin1.0</li>
-  <li>&amp;whr=
-    <br /><input id="domain" type="text" placeholder="domain"></li>
-  <li>&amp;wreply=
-    <br /><input id="link" type="text" placeholder="link"></li>
-</ul>
-</p>
+<ol>
+  <li><span class="input-1">[1]</span> whr: Home Realm, aka domain
+    <br /><input id="domain" type="text" placeholder="whr, i.e. your.domain.name"></li>
+  <li><span class="input-2">[2]</span> wreply: URL we want to redirect to
+    <br /><input id="link" type="text" placeholder="wreply, i.e. your link"></li>
+</ol>
 <p><input type="submit" value="Generate"></p>
 </form>
 
