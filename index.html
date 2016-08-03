@@ -10,13 +10,16 @@
     list-style-type: none;
     margin-bottom: 1em;
   }
-  .input-1, .input-2 {
+  .input-domain, .input-link, .input-hint {
     font-weight: bold;
   }
-  .input-1 {
-    color: red;
+  .input-domain {
+    color: purple;
   }
-  .input-2 {
+  .input-link {
+    color: orange;
+  }
+  .input-hint {
     color: green;
   }
   input[type=text] { width: 95%; }
@@ -27,6 +30,9 @@ $( document ).ready(function() {
     var smartLink = 'https://login.microsoftonline.com/login.srf?wa=wsignin1.0';
     smartLink += '&whr=' + encodeURIComponent($('#domain').val());
     smartLink += '&wreply=' + encodeURIComponent($('#link').val());
+    if ($('#hint').is(':checked')) {
+      smartLink += '&login_hint=' + encodeURIComponent($('#domain').val());
+    }
     $('#generated-output').val(smartLink);
     $('#generated-link').text(smartLink).attr('href', smartLink);
     $('.output').show();
@@ -38,32 +44,39 @@ $( document ).ready(function() {
 <body>
 <div class="container">
   
-<h1>Office 365 smart link generator for a SAML IdP</h1>
+  <h1>Office 365 smart link generator for a SAML IdP</h1>
 
-<p>Linking to an Office 365 resource (e.g. SharePoint site) won't initiate single sign-on automatically.
-That's where smart links come in. A smart link is your realm and your resource address encoded in a login URL.</p>
+  <p>Linking to an Office 365 resource (e.g. SharePoint site) won't initiate single sign-on automatically.
+  That's where smart links come in. A smart link is your realm and your resource address encoded in a login URL.</p>
 
-<p>This generator is useful for Office 365 instances that are configured for SAMLP authentication.
- For ADFS WS-federation, see <a href="http://sbrickey.com/Tech/Blog/Post/Office_365_Smart_Link_to_a_specific_URL">Scott Brickey's blog</a>,
- <a href="https://community.office365.com/en-us/w/sso/358-using-smart-links-or-idp-initiated-authentication-with-office-365">Microsoft's wiki</a> and
- <a href="http://travisspencer.com/stash/o365-smart-link.html">Travis Spencer's generator</a>.</p>
+  <p>This generator is useful for Office 365 instances that are configured for SAMLP authentication.
+   For ADFS WS-federation, see <a href="http://sbrickey.com/Tech/Blog/Post/Office_365_Smart_Link_to_a_specific_URL">Scott Brickey's blog</a>,
+   <a href="https://community.office365.com/en-us/w/sso/358-using-smart-links-or-idp-initiated-authentication-with-office-365">Microsoft's wiki</a> and
+   <a href="http://travisspencer.com/stash/o365-smart-link.html">Travis Spencer's generator</a>.</p>
 
-<p>Format: <span class="code">https://login.microsoftonline.com/login.srf?wa=wsignin1.0&amp;whr=<span class="input-1">[1]</span>&amp;wreply=<span class="input-2">[2]</span></span></p>
+  <p>The generator includes optional handling for <strong>session collisions</strong>, where existing O365 sessions in other realms may exist and 
+    you want to initiate a new session with your realm. Without the <code>login_hint</code> parameter, O365 appears to use an existing session which usually means
+    you'll run into a "User not in directory" issue (currently a "That didn't work" page). With the <code>login_hint</code> parameter, you should at least
+    get presented with a choice between the existing sessions and the new one.</p>
 
-<form id="generate-form">
-<ol>
-  <li><span class="input-1">[1]</span> whr: Home Realm, aka domain
-    <br /><input id="domain" type="text" placeholder="whr, i.e. your.domain.name"></li>
-  <li><span class="input-2">[2]</span> wreply: URL we want to redirect to
-    <br /><input id="link" type="text" placeholder="wreply, i.e. your link"></li>
-</ol>
-<p><input type="submit" value="Generate"></p>
-</form>
+  <p>Format: <code>https://login.microsoftonline.com/login.srf?wa=wsignin1.0&amp;whr=<span class="input-domain">[1]</span>&amp;wreply=<span class="input-link">[2]</span>&amp;login_hint=<span class="input-hint">[3]</span></code></p>
 
-<div class="output">
-<p><input id="generated-output" type="text"></p>
-<p><a id="generated-link" href="#"></a></p>
-</div>
+  <form id="generate-form">
+  <ol>
+    <li><span class="input-domain">[1]</span> <code>whr</code>: Home Realm, aka domain
+      <br /><input id="domain" type="text" placeholder="whr, i.e. your.domain.name"></li>
+    <li><span class="input-link">[2]</span> <code>wreply</code>: URL we want to redirect to
+      <br /><input id="link" type="text" placeholder="wreply, i.e. your link"></li>
+    <li><span class="input-hint">[3]</span> <code>login_hint</code>: Hint the Home Realm domain (from <span class="input-domain">[1]</span>) if we are expecting collisions with other O365 sessions
+      <br /><input id="hint" type="checkbox" value="1" checked></li>
+  </ol>
+  <p><input type="submit" value="Generate"></p>
+  </form>
+
+  <div class="output">
+  <p><input id="generated-output" type="text"></p>
+  <p><a id="generated-link" href="#"></a></p>
+  </div>
 
 </div>
 </body>
